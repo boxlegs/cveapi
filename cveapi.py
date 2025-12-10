@@ -15,7 +15,7 @@ def get_cves_by_tag(cve_tag):
     if req.status_code == 200:
         return parse_cves(req.json())
 
-def get_cves_by_severity(severity, version='4'):
+def get_cves_by_severity(severity, version='3'):
 
     sev_param = {f'cvssV{version}Severity': severity} 
 
