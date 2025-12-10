@@ -31,9 +31,7 @@ class CVE:
         lastmodtime = self.lastModified.strftime('%I%p %d/%m/%Y').lstrip('0')
         
         return f"CVE ID: {self.id}\nPublished: {pubtime}\nLast Modified: {lastmodtime}\nStatus: {self.vulnStatus}\nDescriptions: {self.descriptions}" 
-        # References:""" + '\n'.join([ref['url'] for ref in self.references])
 
-        
 
 def call_nvd_api(parameters):
     return requests.get('https://services.nvd.nist.gov/rest/json/cves/2.0', params=parameters)
