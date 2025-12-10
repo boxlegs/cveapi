@@ -1,3 +1,4 @@
 import cveapi
 
-print(cveapi.get_cve_by_id('CVE-2017-0150').metrics)
+
+[print(cvss) for cvss in cveapi.get_cve_by_id('CVE-2025-55182').metrics.values()]
