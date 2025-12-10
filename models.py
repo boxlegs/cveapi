@@ -38,7 +38,7 @@ class CVE:
         return parsed_metrics
     
     def __repr__(self):
-        return f"<CVE {self.id}>"
+        return f"<{self.id}>"
     
     def __str__(self):
         pubtime = self.published.strftime('%I%p %d/%m/%Y').lstrip('0')
