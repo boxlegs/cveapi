@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import List
 
 from .cvss import CVSSv2Metric, CVSSv3Metric, CVSSv4Metric
 
