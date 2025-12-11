@@ -34,16 +34,6 @@ def get_cve_by_id(cve_id):
     req = call_cve_api({'cveId': cve_id})
     if req.status_code == 200:
         return parse_cve(req.json().get('vulnerabilities')[0])
-    
-def get_cves_by_tag(cve_tag: str):
-    req = call_cve_api({'cveTag': cve_tag})
-    if req.status_code == 200:
-        return parse_cves(req.json())
-
-def get_cves_by_keyword(keyword: str):
-    req = call_cve_api({'keywordSearch': keyword})
-    if req.status_code == 200:
-        return parse_cves(req.json())
 
 def get_cves(
     cve_tag: Optional[str] = None,
