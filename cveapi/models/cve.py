@@ -26,6 +26,9 @@ class CVE:
         self.references = cve_data.get('references', [])
 
     def _parse_metrics(self, metrics):
+        """
+        Parse CVSS metrics.
+        """
         parsed_metrics = {}
         for metric in metrics.values():
             metric = metric[0]
@@ -33,11 +36,9 @@ class CVE:
                 case '3.0' | '3.1':
                     parsed_metrics['3'] = CVSSv3Metric(metric)
                 case '2.0':
-                    pass
                     parsed_metrics['2'] = CVSSv2Metric(metric)
                 case '4.0':
                     parsed_metrics['4'] = CVSSv4Metric(metric)
-                    pass
         return parsed_metrics
     
     def __repr__(self):
