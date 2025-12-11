@@ -7,7 +7,7 @@ class CVE:
     published: datetime
     lastModified: datetime
     vulnStatus: str
-    descriptions: str
+    description: str
     metrics: dict
     references: list[dict]
 
@@ -18,7 +18,7 @@ class CVE:
         self.published = datetime.fromisoformat(cve_data['published'])
         self.lastModified = datetime.fromisoformat(cve_data['lastModified'])
         self.vulnStatus = cve_data['vulnStatus']
-        self.descriptions = [desc['value'] for desc in cve_data.get('descriptions', []) if desc['lang'] == lang][0]
+        self.description = [desc['value'] for desc in cve_data.get('descriptions', []) if desc['lang'] == lang][0]
         self.metrics = self._parse_metrics(cve_data.get('metrics', {}))
         self.references = cve_data.get('references', [])
 
@@ -44,7 +44,7 @@ class CVE:
         pubtime = self.published.strftime('%I%p %d/%m/%Y').lstrip('0')
         lastmodtime = self.lastModified.strftime('%I%p %d/%m/%Y').lstrip('0')
         
-        return f"CVE ID: {self.id}\nPublished: {pubtime}\nLast Modified: {lastmodtime}\nStatus: {self.vulnStatus}\nDescriptions: {self.descriptions}" 
+        return f"CVE ID: {self.id}\nPublished: {pubtime}\nLast Modified: {lastmodtime}\nStatus: {self.vulnStatus}\nDescription: {self.description}" 
 
 """
 Abstract class for CVSS Metrics
@@ -187,10 +187,6 @@ class CVSSv4Metric(CVSSMetric):
         self.valueDensity = data['cvssData']['valueDensity']
         self.vulnerabilityResponseEffort = data['cvssData']['vulnerabilityResponseEffort']
         self.providerUrgency = data['cvssData']['providerUrgency']
-
-        print(data['cvssData']['vectorString'])
-
-        print(self.vectorString())
    
     def vectorString(self):
 
