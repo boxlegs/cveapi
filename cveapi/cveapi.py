@@ -1,5 +1,5 @@
 import requests
-from models import CVE
+from cveapi import CVE, CVSSv2Metric, CVSSv3Metric, CVSSv4Metric
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 
