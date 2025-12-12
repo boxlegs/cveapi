@@ -1,7 +1,11 @@
 from datetime import datetime
 from typing import List
+import logging
 
-from .cvss import CVSSv2Metric, CVSSv3Metric, CVSSv4Metric
+from .cvss import CVSSMetric, CVSSv2Metric, CVSSv3Metric, CVSSv4Metric
+
+
+logger = logging.getLogger(__name__)
 
 class CVE:
 
@@ -15,7 +19,7 @@ class CVE:
     references: list[dict]
 
 
-    def __init__(self, cve_data, lang='en'):
+    def __init__(self, cve_data: dict, lang:str = 'en'):
         self.id = cve_data['id']
         self.sourceIdentifier = cve_data['sourceIdentifier']
         self.published = datetime.fromisoformat(cve_data['published'])
@@ -25,7 +29,10 @@ class CVE:
         self.metrics = self._parse_metrics(cve_data.get('metrics', {}))
         self.references = cve_data.get('references', [])
 
-    def _parse_metrics(self, metrics):
+    def _parse_metrics(self, metrics: dict) -> dict[str, CVSSMetric]:
+        """
+        Parses CVE's various CVSS metrics.
+        """
         parsed_metrics = {}
         for metric in metrics.values():
             metric = metric[0]

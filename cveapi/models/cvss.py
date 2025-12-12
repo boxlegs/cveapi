@@ -24,6 +24,9 @@ class CVSSMetric:
         pass
 
     def _short(self, attr):
+        """
+        Helper function for converting CVSS metrics attributes to vector strings.
+        """
         return 'X' if attr == 'NOT_DEFINED' else attr[0]
 
     def __str__(self):
@@ -53,7 +56,6 @@ class CVSSv2Metric(CVSSMetric):
         self.obtainAllPrivilege = data['obtainAllPrivilege']
         self.obtainUserPrivilege = data['obtainUserPrivilege']
         self.obtainOtherPrivilege = data['obtainOtherPrivilege']
-        # self.userInteractionRequired = data['userInteractionRequired']
         self.impactScore = data['impactScore']
         self.confidentialityImpact = data['cvssData']['confidentialityImpact']
         self.integrityImpact = data['cvssData']['integrityImpact']

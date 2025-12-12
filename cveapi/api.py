@@ -2,6 +2,9 @@ import requests
 from cveapi import CVE, CVSSv2Metric, CVSSv3Metric, CVSSv4Metric
 from datetime import datetime
 from typing import Optional, List, Dict, Any
+import logging 
+
+logger = logging.getLogger(__name__)
 
 def call_cve_api(parameters):
     try:
@@ -22,6 +25,8 @@ def parse_cves(data: dict) -> list[CVE]:
     """
     Parse multiple CVE entries from NVD API response.
     """
+    logger.info("Got %d CVE results from NVD API", data.get('totalResults', 0))
+    
     return [parse_cve(cve) for cve in data.get('vulnerabilities')]
 
 
@@ -31,7 +36,10 @@ def get_cve_by_id(cve_id):
     """
     if not cve_id.startswith('CVE-'):
         raise ValueError("CVE ID must start with 'CVE-'")
+
+    logger.debug("Fetching single CVE with ID: %s", cve_id)
     req = call_cve_api({'cveId': cve_id})
+    
     if req.status_code == 200:
         return parse_cve(req.json().get('vulnerabilities')[0])
 
@@ -93,7 +101,6 @@ def get_cves(
         params['cweId'] = cwe_id
 
     # CPE logic
-
     if cpe_name:
         params['cpeName'] = cpe_name
         if is_vulnerable:
@@ -107,6 +114,7 @@ def get_cves(
     if noRejected:
         params['noRejected'] = None
 
+    logger.debug(f"Searching for CVEs with the following parameters {params}")
 
     req = call_cve_api(params)
     if req and req.status_code == 200:
