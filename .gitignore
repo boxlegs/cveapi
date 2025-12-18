@@ -1,5 +1,6 @@
 __pycache__/
-test/
 # Snyk Security Extension - AI Rules (auto-generated)
 .github/instructions/snyk_rules.instructions.md
 test.py
+.pytest_cache/
+venv/

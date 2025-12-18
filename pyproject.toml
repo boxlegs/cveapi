@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cveapi"
+version = "0.1.0"
+description = "Python library for the NVD product and vulnerability API"
+authors = [
+    { name="boxlegs" }
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "requests",
+    "pytest"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
